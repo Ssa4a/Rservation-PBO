@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<h1>Admin Dashboard</h1>
+
+<h2>Pending Bookings</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Booking ID</th>
+        <th>User</th>
+        <th>Room</th>
+        <th>Booking Date</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="booking : ${pendingBookings}">
+        <td th:text="${booking.id}"></td>
+        <td th:text="${booking.user.username}"></td>
+        <td th:text="${booking.room}"></td>
+        <td th:text="${booking.bookingDate}"></td>
+        <td>
+            <form action="/admin/acceptBooking" method="post">
+                <input type="hidden" name="bookingId" th:value="${booking.id}" />
+                <button type="submit">Accept</button>
+            </form>
+            <form action="/admin/rejectBooking" method="post">
+                <input type="hidden" name="bookingId" th:value="${booking.id}" />
+                <button type="submit">Reject</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/admin/logout">Logout</a>
+
+<h1>Dashboard Admin</h1>
+<a href="/admin/rooms">Lihat Semua Ruangan</a>
+
+</body>
+</html>
